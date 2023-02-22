@@ -13,7 +13,8 @@ export default {
     }
   },
   async created() {
-    const res = await fetch("http://localhost:3002/api/getPicList");
+    // 请求的接口不指定域名：
+    const res = await fetch("/api/getPicList");
     const resJson = await res.json();
     this.urls = resJson.data;
   },
