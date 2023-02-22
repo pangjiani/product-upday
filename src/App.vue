@@ -1,18 +1,27 @@
 <template>
   <div id="app">
-    <HomePage></HomePage>
+    <ToolPage></ToolPage>
   </div>
 </template>
 
 <script>
-import HomePage from './components/HomePage.vue';
+// import HomePage from './pages/HomePage/index.vue';
+import ToolPage from './pages/ToolPage/index.vue';
 
 export default {
   name: 'App',
   components: {
-    HomePage
+    ToolPage
   }
 }
 </script>
 
-<style></style>
+<style>
+#app {
+  background: #f5f5fb;
+  height: 100vh;
+}
+body {
+  margin: 0;
+}
+</style>
