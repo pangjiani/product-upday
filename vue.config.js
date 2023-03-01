@@ -5,5 +5,8 @@ module.exports = defineConfig({
   // 根目录下的 vue.config.js 配置转发
   devServer: {
     proxy: "http://localhost:3002"
-  }
+  },
+  publicPath: process.env.NODE_EVN === 'production'
+    ? '/product-upday/'
+    : '/'
 })
