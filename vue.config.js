@@ -6,7 +6,7 @@ module.exports = defineConfig({
   devServer: {
     proxy: "http://localhost:3002"
   },
-  publicPath: process.env.NODE_EVN === 'production'
+  publicPath: process.env.NODE_ENV === 'production'
     ? '/product-upday/'
     : '/'
 })
