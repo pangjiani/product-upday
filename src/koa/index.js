@@ -1,6 +1,9 @@
 const koa = require("koa");
 const app = new koa();
 const router = require("koa-router")();
+const jsonwebtoken = require("jsonwebtoken");
+const bodyparser = require("koa-bodyparser");
+const { secret } = require("./privateConf");
 
 // 设置 url 和数据
 router.get("/api/getPicList", async (ctx) => {
@@ -18,6 +21,40 @@ router.get("/api/getPicList", async (ctx) => {
     msg: "成功",
   };
 });
+/**** 添加 /api/login 接口 ********/
+const userNameList = ["jane"]
+router.post("/api/login", async (ctx) => {
+  const { body } = ctx.request
+  try {
+    const { userName } = body
+    // 匹配用户名是否相等
+    if(userNameList.includes(userName)) {
+      ctx.status = 200
+      ctx.body = {
+        message: "登录成功",
+        // 生成 token 返回给客户端
+        token: jsonwebtoken.sign(
+          {
+            data: userName,
+            // 设置 token 过期时间
+            exp: Math.floor(Date.now() / 1000) + 60 * 60,
+          },
+          secret
+        )
+      }
+    } else {
+      ctx.status = 401
+      ctx.body = {
+        message: "账号错误"
+      }
+    }
+  } catch(error) {
+    ctx.throw(500);
+  }
+})
+// 引入 bodyParser 中间件
+app.use(bodyparser());
+
 // 去掉 koa 跨域设置：
 /* 通过 CORS 配置解决跨域*/
 app.use(async (ctx, next) => {
