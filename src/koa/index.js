@@ -19,9 +19,9 @@ router.get("/api/getPicList", async (ctx) => {
   };
 });
 // 去掉 koa 跨域设置：
-/* 通过 CORS 配置解决跨域
+/* 通过 CORS 配置解决跨域*/
 app.use(async (ctx, next) => {
-  ctx.set("Access-Control-Allow-Origin", "http://localhost:8080"); // 添加前端的域名
+  ctx.set("Access-Control-Allow-Origin", "http://pc.jiani.online"); // 添加前端的域名
   ctx.set(
     "Access-Control-Allow-Headers",
     "Content-Type, Content-Length, Authorization, Accept, X-Requested-With"
@@ -33,7 +33,7 @@ app.use(async (ctx, next) => {
     await next();
   }
 });
-*/
+
 // 启动路由
 app.use(router.routes());
 // 设置响应头
