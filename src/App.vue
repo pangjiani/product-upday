@@ -1,7 +1,7 @@
 <template>
   <div id="app">
-    <MenuList class="menu"></MenuList>
-    <div class="content">
+    <MenuList class="menu" v-if="isLogin"></MenuList>
+    <div class="content" :style="isLogin ? '' : 'margin-left:0'">
       <router-view></router-view>
     </div>
   </div>
@@ -12,6 +12,11 @@ import MenuList from './components/MenuList/index.vue'
 
 export default {
   name: 'App',
+  data() {
+    return {
+      isLogin: false,
+    }
+  },
   components: {
     MenuList
   }
