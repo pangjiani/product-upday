@@ -1,9 +1,16 @@
 const koa = require("koa");
 const app = new koa();
 const router = require("koa-router")();
+// jsonwebtoken 用来生成 token
 const jsonwebtoken = require("jsonwebtoken");
+// koa-bodyparser  用来解析用户 post 请求的数据
 const bodyparser = require("koa-bodyparser");
+// 引入密钥，生成  token 的时候需要密钥
 const { secret } = require("./privateConf");
+// koa-jwt 用来访问页面时验证token，实现路由权限控制
+const koaJwt = require("koa-jwt")
+
+
 
 // 设置 url 和数据
 router.get("/api/getPicList", async (ctx) => {
@@ -19,8 +26,8 @@ router.get("/api/getPicList", async (ctx) => {
     ],
     code: 0,
     msg: "成功",
-  };
-});
+  }
+})
 /**** 添加 /api/login 接口 ********/
 const userNameList = ["jane"]
 router.post("/api/login", async (ctx) => {
@@ -70,6 +77,8 @@ app.use(async (ctx, next) => {
     await next();
   }
 });
+// 路由权限控制，除了`path`里匹配的路径，都需要验证 token
+app.use(koaJwt({ secret }).unless({path: [/^\/api\/login/]}))
 
 // 启动路由
 app.use(router.routes());
