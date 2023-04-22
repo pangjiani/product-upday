@@ -15,12 +15,21 @@ const routes = [
     // 访问 # 加我们设置的路由地址就是相应的页面，例如http://localhost:8080/#/home
     path: '/home',
     name: 'home',
-    component: HomePage
+    component: HomePage,
+    // 元信息
+    meta: {
+      title: '画廊',
+      icon: 'el-icon-picture-outline'
+    }
   },
   {
     path: '/tool',
     name: 'tool',
-    component: ToolPage
+    component: ToolPage,
+    meta: {
+      title: '工具',
+      icon: 'el-icon-suitcase-1'
+    }
   },
   {
     path: '/login',
