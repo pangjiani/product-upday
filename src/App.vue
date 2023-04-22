@@ -1,7 +1,7 @@
 <template>
   <div id="app">
-    <MenuList class="menu" v-if="isLogin"></MenuList>
-    <div class="content" :style="isLogin ? '' : 'margin-left:0'">
+    <MenuList class="menu" v-if="showMenu"></MenuList>
+    <div class="content" :style="showMenu ? '' : 'margin-left:0'">
       <router-view></router-view>
     </div>
   </div>
@@ -12,13 +12,14 @@ import MenuList from './components/MenuList/index.vue'
 
 export default {
   name: 'App',
-  data() {
-    return {
-      isLogin: false,
-    }
-  },
   components: {
     MenuList
+  },
+  computed: {
+    // 计算是否展示菜单，并调整页面布局
+    showMenu() {
+      return this.$route.path !== "/login"
+    }
   }
 }
 </script>

@@ -50,6 +50,8 @@ service.interceptors.response.use(
             router.push("/login");
           }
         }
+        //进度条结束
+        nprogress.done()
         //响应失败的返回
         return Promise.reject(error);
     }
