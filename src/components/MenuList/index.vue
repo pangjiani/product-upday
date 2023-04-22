@@ -19,11 +19,26 @@
 <script>
 export default {
     name: 'MenuList',
-    computed: {
-        menuItems() {
-            return this.$router.options.routes.filter(item => {
-               return item.meta && item.meta.title
-            }).map(route => ({
+    data() {
+        return {
+            menuItems: [],
+        }
+    },
+    watch: {
+        // 监听路由的变化，生成新的菜单栏
+        $route: {
+            handler() {
+                // 获取当前所有可访问的路由，调用方法生成动态菜单
+                this.genreateMenus(this.$router.matcher.getRoutes())
+            },
+            immediate: true
+        }
+    },
+    methods: {
+        // 生成动态菜单的方法
+        genreateMenus(routes) {
+            this.menuItems = routes.filter(item => item.meta && item.meta.title)
+                .map(route => ({
                     name: route.name,
                     path: route.path,
                     title: route.meta.title,

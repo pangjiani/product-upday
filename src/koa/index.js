@@ -12,7 +12,7 @@ const koaJwt = require("koa-jwt")
 
 
 
-// 设置 url 和数据
+/**** 添加 /api/getPicList 接口，返回图片url ********/
 router.get("/api/getPicList", async (ctx) => {
   ctx.body = {
     data: [
@@ -28,7 +28,17 @@ router.get("/api/getPicList", async (ctx) => {
     msg: "成功",
   }
 })
-/**** 添加 /api/login 接口 ********/
+/**** 添加 /api/login 接口，返回用户可访问的路由 ********/
+router.get("/api/getRoutes", async (ctx) => {
+  ctx.body = {
+    code: 0,
+    message: "成功",
+    // 返回的数据对应路由的名字
+    data: ['/', 'tool']
+  }
+})
+
+/**** 添加 /api/login 接口，返回用户的token ********/
 const userNameList = ["jane"]
 router.post("/api/login", async (ctx) => {
   const { body } = ctx.request
