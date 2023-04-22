@@ -34,7 +34,7 @@ router.get("/api/getRoutes", async (ctx) => {
     code: 0,
     message: "成功",
     // 返回的数据对应路由的名字
-    data: ['/', 'tool']
+    data: ['/', 'tool', 'user']
   }
 })
 

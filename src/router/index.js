@@ -36,6 +36,15 @@ const asyncRoutes = [
       icon: 'el-icon-suitcase-1'
     }
   },
+  {
+    path: '/user',
+    name: 'user',
+    component: () => import('../pages/UserPage/index.vue'),
+    meta: {
+      title: '用户管理',
+      icon: 'el-icon-user',
+    }
+  }
 ]
 
 const router = new VueRouter({
