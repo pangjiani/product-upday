@@ -5,6 +5,7 @@
   </template>
   
   <script>
+  import { getPicList } from './api'
   export default {
     name: 'HomePage',
     data: function () {
@@ -14,9 +15,8 @@
     },
     async created() {
       // 请求的接口不指定域名：
-      const res = await fetch("http://47.107.63.152:3002/api/getPicList");
-      const resJson = await res.json();
-      this.urls = resJson.data;
+      const data = await getPicList();
+      this.urls = data;
     },
   }
   </script>

@@ -38,21 +38,26 @@ router.post("/api/login", async (ctx) => {
     if(userNameList.includes(userName)) {
       ctx.status = 200
       ctx.body = {
+        code: 0,
         message: "登录成功",
-        // 生成 token 返回给客户端
-        token: jsonwebtoken.sign(
-          {
-            data: userName,
-            // 设置 token 过期时间
-            exp: Math.floor(Date.now() / 1000) + 60 * 60,
-          },
-          secret
-        )
+        data: {
+          // 生成 token 返回给客户端
+          token: jsonwebtoken.sign(
+            {
+              data: userName,
+              // 设置 token 过期时间
+              exp: Math.floor(Date.now() / 1000) + 60 * 60,
+            },
+            secret
+          )
+        }
       }
     } else {
       ctx.status = 401
       ctx.body = {
-        message: "账号错误"
+        code: 1,
+        message: "账号错误",
+        data: null,
       }
     }
   } catch(error) {

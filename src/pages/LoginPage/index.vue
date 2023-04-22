@@ -9,9 +9,9 @@
                 并将 form-Item 的 prop 属性设置为需要验证的特殊键值即可;
                 status-icon属性为输入框添加了表示校验结果的反馈图标 -->
             <el-form ref="ruleForm" :model="ruleForm" :rules="rules" status-icon class="login" label-width="0">
-                <el-form-item label="" prop="account">
+                <el-form-item label="" prop="userName">
                     <el-input 
-                        v-model="ruleForm.account" 
+                        v-model="ruleForm.userName" 
                         placeholder="请输入账号"
                     ></el-input>
                 </el-form-item>
@@ -36,37 +36,31 @@
 </template>
 
 <script>
+import { login } from './api'
 export default {
     name: 'LoginPage',
     data() {
         return {
             ruleForm: {
-                account: '',
+                userName: '',
                 password: '',
             },
             rules: {
-               account: [{ required: true, message: '请输入账号', trigger: 'blur' }],
-               password: [
-                { required: true, message: '请输入密码', trigger: 'blur' },
-                { min: 3, max: 6, message: '请输入3-6个字符', trigger: 'blur' },
-            ],
+                userName: [{ required: true, message: '请输入账号', trigger: 'blur' }],
+                password: [
+                    { required: true, message: '请输入密码', trigger: 'blur' },
+                    { min: 3, max: 6, message: '请输入3-6个字符', trigger: 'blur' },
+                ],
             }
         }
     },
     methods: {
         async submitForm() {
-           const res = await fetch("/api/login", {
-             method: "POST",
-             headers: {
-                "Content-Type": "application/json;charset=utf-8",
-             },
-             body: JSON.stringify({
-                userName: this.ruleForm.account,
-                password: this.ruleForm.password,
-             })
-           })
-           const resJson = await res.json()
-           this.urls = resJson.data
+            const data = await login(this.ruleForm)
+            // 本地存储接口返回的token
+            localStorage.setItem("token", data.token)
+            // 跳转至首页
+            this.$router.push("/")
         },
         resetForm() {},
     }
